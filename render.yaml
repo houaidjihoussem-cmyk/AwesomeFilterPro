@@ -1,0 +1,34 @@
+services:
+  - type: worker
+    name: media-search-bot
+    env: python
+    plan: free
+    branch: Tamilans-Working-Branch
+
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+
+    envVars:
+      # 🔐 MongoDB (حط القيمة في Render Dashboard كـ Secret)
+      - key: DATABASE_URI
+        sync: false
+
+      # 🗄️ Database config
+      - key: DATABASE_NAME
+        value: Telegram
+
+      # ⚠️ Collection جديدة (مهم)
+      - key: COLLECTION_NAME
+        value: media_clean_v2
+
+      # 🔎 Search behavior
+      - key: USE_CAPTION_FILTER
+        value: "false"
+
+      # 🤖 Telegram bot secrets (حطهم كـ Secrets)
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
